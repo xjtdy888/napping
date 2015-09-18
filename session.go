@@ -101,7 +101,9 @@ func (s *Session) Send(r *Request) (response *Response, err error) {
 				s.log(err)
 				return
 			}
-			buf = bytes.NewBuffer(b)
+
+			eb := url.QueryEscape(string(b))
+                        buf = bytes.NewBuffer([]byte(eb))
 		}
 		if buf != nil {
 			req, err = http.NewRequest(r.Method, u.String(), buf)
